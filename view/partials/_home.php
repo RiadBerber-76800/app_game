@@ -3,7 +3,7 @@
     <!-- head content -->
     <div class=" wrap_content-head text-center">
         <?php $main_title = "App Game";
-        include("partials/_h1.php") ?>
+        include("_h1.php") ?>
         
         <p>L'app qui répertorie vos jeux</p>
         
@@ -14,7 +14,7 @@
 
 
 
-        <?php require_once("partials/_alert.php") ?>
+        <?php require_once("_alert.php") ?>
         
         
     </div>
@@ -55,7 +55,7 @@
                                 </a>
                             </td>
                             <td>
-                                <?php include("partials/_modal.php") ?>
+                                <?php include("_modal.php") ?>
                             </td>
                         </tr>
                         <?php endforeach ?>

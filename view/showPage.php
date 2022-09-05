@@ -1,6 +1,6 @@
 <?php
 
-$title = "Accueil";
+// $title = "Show";
 ob_start();
 require("partials/_show.php");
 
