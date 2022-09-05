@@ -19,7 +19,7 @@
         if (in_array($extension,$allowed_extensions)) {
             $new_img_name = uniqid('IMG-',true).".".$extension;
             // $GLOBALS[]
-            $img_upload_path = 'uploads/'.$new_img_name;  //uploads/Img-dskdhfksdj.jpg mettre dans le dossier uploads!!
+            $img_upload_path = 'public/uploads/'.$new_img_name;  //uploads/Img-dskdhfksdj.jpg mettre dans le dossier uploads!!
             move_uploaded_file($files_tmp, $img_upload_path);
         } else {
             $error ["url_img"] = "<span class=text-red-500>Type de fichier incorrect (jpg,jprg,png,svg)</span>";

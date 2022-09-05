@@ -109,13 +109,36 @@ function delete(): void
     $sql = "DELETE FROM jeux WHERE id=?";
     $query = $pdo->prepare($sql);
     $query->execute([$id]);
-    // redirect
+// redirect
 
     $_SESSION["success"] = "Le jeu est supprimé ! ";
     header("Location:index.php");
 }
 
-function createGame()
+function create($error): void
+{
+   
+     require_once("utils/security-form/include.php");
+  
+  if (count($error) == 0) {
+$pdo = getPDO();
+$sql = "INSERT INTO jeux(name, price, genre, note, plateforms, description, PEGI, created_at, url_img) VALUES(:name, :price, :genre, :note, :plateforms, :description, :PEGI, NOW(), :url_img)";
+$query = $pdo->prepare($sql);
+$query->bindValue(':name', $nom, PDO::PARAM_STR);
+$query->bindValue(':price', $price, PDO::PARAM_STMT); 
+$query->bindValue(':genre', implode("|", $tableau_propre_de_genre), PDO::PARAM_STR); 
+$query->bindValue(':plateforms', implode("|", $tableau_propre_de_plateforms), PDO::PARAM_STMT);
+$query->bindValue(':note', $note, PDO::PARAM_STMT);
+$query->bindValue(':description', $description, PDO::PARAM_STR);
+$query->bindValue(':PEGI', $pegi, PDO::PARAM_STR);
+$query->bindValue(':url_img', $url_img, PDO::PARAM_STR);
+
+$query->execute();
+$_SESSION["success"] = "Le jeu a bien été ajouté";
+header("Location: index.php");
+die;
+  }
+}
 
 
 

@@ -3,27 +3,14 @@
 // start session
 session_start();
 $title = "Afficher jeux"; // title for current page
-include("partials/_header.php"); // include header
-include("helpers/functions.php"); // include function
-// inclure PDO pour la connexion a la BDD dans mon script
-require_once("helpers/pdo.php");
+// include("_header.php"); // include header
+require_once("models/database.php");
 
-//////////////////////////////////
-// Traitetement du formulaire
-///////////////////////////////////
-// création array error
 $error = [];
 $errorMessage = "<span class='text-red-500'>*Ce champs est obligatoire</span>";
-// variable success
-$success = false;
 
-// 1- je verifie que le btn submit fonctionne en affichant un message echo "Hourra"
 if (!empty($_POST["submited"]) && isset($_FILES["url_img"]) && $_FILES["url_img"]["error"] == 0) {
-  require_once("validation-formulaire/include.php");
-  // debug_array($_FILES);
-  if (count($error) == 0) {
-    require_once("sql/addGame-sql.php");
-  }
+create($error); 
 }
 ?>
 <section class="py-12">
@@ -200,7 +187,3 @@ if (!empty($_POST["submited"]) && isset($_FILES["url_img"]) && $_FILES["url_img"
   
 </section>
 
-<!-- footer -->
-<?php
-include("partials/_footer.php") // include footer
-?>
