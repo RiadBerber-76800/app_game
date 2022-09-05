@@ -18,7 +18,7 @@
         <!-- update btn bouton modifier -->
         <a href="modifier.php?id=<?= $game["id"] ?>&name=<?=$game["name"] ?>" class="btn btn-success text-white">Modifier</a>
        <!-- delete -->
-        <?php include("partials/_modal.php") ?>
+        <?php include("_modal.php") ?>
         
     </div>
 </main>
