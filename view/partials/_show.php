@@ -16,7 +16,7 @@
     </div>
     <div class="">
         <!-- update btn bouton modifier -->
-        <a href="modifier.php?id=<?= $game["id"] ?>&name=<?=$game["name"] ?>" class="btn btn-success text-white">Modifier</a>
+        <a href="update.php?id=<?= $game["id"] ?>&name=<?=$game["name"] ?>" class="btn btn-success text-white">Modifier</a>
        <!-- delete -->
         <?php include("_modal.php") ?>
         

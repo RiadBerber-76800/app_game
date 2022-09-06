@@ -1,65 +1,10 @@
-<?php
-// on démarre la session ici
-    session_start();
-    $title = "Afficher jeux"; // title for current page
-    include('partials/_header.php'); //include header
-    // petit rappel: La combinaison en dessous permet de voir le lien parfait 
-    //   echo $_SERVER['PHP_SELF']
-    include('helpers/functions.php'); //include function
-    // inclure PDO (pdo.php) pour la connexion à la BDD dans mon script
-    require_once("helpers/pdo.php");
-    // debug_array($_GET)  //on peut vérifier si ça prend bien enn compte dans le lien
-
-    // création array error
-    $error = [];
-    $errorMessage = "<span class='text-red-500'>*Ce champs est obligatoire</span>";
-    // variable success
-    $success = false;
-
-    
-    // 1- verifie qu'on recupere id existant du jeux 
-    // On vérifie que id existe (cad pas vide) et qu'il est numérique
-    if(!empty($_GET['id']) && is_numeric($_GET['id'])){
-    // 2- Je nettoie mon id contre xss
-        // $id = trim(htmlspecialchars($_GET['id']));  //pareil en dessous
-        $id = clear_xss($_GET['id']); //car créé dans functions.php
-    // 3- faire la query (requête) vers BDD
-        $sql = "SELECT * FROM jeux WHERE id=:id";
-    // 4- Préparation de la requête
-        $query = $pdo->prepare($sql);
-    // 5- Sécuriser la query (requête) contre injection sql
-        $query->bindvalue(':id',$id, PDO::PARAM_INT);
-    // 6- Execute la query vers la base de donnée BDD
-        $query->execute();
-    // 7- On stocke tout dans une variable le jeu récupéré
-        $game= $query->fetch();
-        // debug_array($game);
-        // $game=[]; //teste comment ça réagit lorsqu'il n'y a rien
-
-        if(!$game){
-            $_SESSION["error"]= "Ce jeu n'est pas disponible !";
-            header("Location: index.php");
-        }
-    } else {
-        $_SESSION["error"]= "URL invalide !";
-        header("Location: index.php");
-    }
-
-    // 2- On envoie vers la BDD
-    if (!empty($_POST["submited"])) {
-        require_once("validation-formulaire/include.php");
-        if(count($error) == 0){
-        require_once("sql/updateGame-sql.php");
-        }
-    }
-?>
 <div class="pt-16">
   <a href="index.php" class="text-blue-400 text-sm"><- retour</a>
     <?php $main_title = "Modifier le jeu";
-      include("partials/_h1.php") ?>
-    <form action="" method="POST">
+      include("_h1.php") ?>
+    <form action="" method="POST" enctype="multipart/form-data">
       <!-- input for name -->
-        <div class="mb-3">
+      <div class="mb-3">
           <label for="name" class="font-semibold text-blue-900">Nom</label>
           <input type="text" name="name" class="input input-bordered w-full max-w-xs block" value="<?= $game["name"]  ?>" />
           <p>
@@ -201,6 +146,19 @@
           ?>
         </p>
       </div>
+      
+      <!-- upload image img -->
+    <div class="py-3 ">
+      <label for="url_img" class="font-semibold text-gray-100 ">Votre image</label>
+      <input type="file" class="block mt-3 " id="url_img" name="url_img">
+      <p>
+        <?php
+        if (!empty($error["url_img"])) {
+          echo $error["url_img"];
+        }
+        ?>
+      </p>
+    </div>
       <!-- input id -->
       <input type="hidden" name="id" value="<?= $game["id"] ?>">
       <!-- submit btn -->
