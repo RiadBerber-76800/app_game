@@ -1,4 +1,3 @@
-<!-- main content -->
 <main class="pt-16">
     <a href="index.php" class="text-blue-400 text-sm"><- retour</a>
     
@@ -22,4 +21,3 @@
         
     </div>
 </main>
-<!-- end main content -->

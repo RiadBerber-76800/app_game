@@ -25,4 +25,8 @@ foreach ($tableau_sale_platforms as $linge_sale) {
 };
 $pegi = !empty ($_POST["pegi"]) ? clear_xss($_POST["pegi"]) : [];
 // $url_img = $GLOBALS["img_upload_path"] ;
-$url_img = $img_upload_path;
+if (!empty($img_upload_path)) {
+  $url_img = $img_upload_path;
+} else {
+  $error["url_img"] = "<span class=text-red-500>*Choisissez un fichier</span>";
+ }

@@ -1,20 +1,24 @@
-<!-- header -->
 <?php
-    // start session
-    session_start();
-    /**
-     * This file show form for create a new page
-     */
-    $title = "Afficher jeux"; // title for current page
-    // include("_header.php"); // include header
-    require_once("models/database.php");
+session_start();
+/**
+ * this file shows form for create a new game
+ */
+$title = "Afficher jeux"; // title for current page
 
-    $error = [];
-    $errorMessage = "<span class='text-red-500'>*Ce champs est obligatoire</span>";
+// inclure PDO pour la connexion a la BDD dans mon script
+require_once("models/database.php");
 
-    if (!empty($_POST["submited"]) && isset($_FILES["url_img"]) && $_FILES["url_img"]["error"] == 0) {
-    create($error); 
-    }
-    require("view/createPage.php")
-?>
+// création array error
+$error = [];
+$errorMessage = "<span class='text-red-500'>*Ce champs est obligatoire</span>";
+
+// 1- je verifie que le btn submit fonctionne en affichant un message echo "Hourra"
+if (!empty($_POST["submited"])) {
+    require_once("utils/secure-form/include.php");
+    if (count($error) == 0){
+    create($nom, $price, $tableau_propre_de_genre, $tableau_propre_de_plateforms, $note, $description, $pegi, $url_img);}
+}
+
+require("view/createPage.php");
+
 

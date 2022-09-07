@@ -1,9 +1,12 @@
 <?php
 
-    // $title = "Show";
-    ob_start();
-    require("partials/_show.php");
+$title = "Accueil"; 
+ob_start();
+require("partials/_show.php");
 
-    $content = ob_get_clean();
+// crée une variable -> stock
 
-    require("layout.php");
+$content = ob_get_clean();
+// recupère sauvegarder dans un emplacement virtuel
+// depose ici et nettoie le virtuel
+require("layout.php"); 
